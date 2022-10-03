@@ -1,0 +1,17 @@
+     1                                  section .data
+     2                                      msg:
+     3 00000000 68656C6C6F20776F72-             db   "hello world!", 0      ; ends with NULL
+     3 00000009 6C642100           
+     4                                  section .bss
+     5                                  section .text
+     6                                      global _main
+     7                                  _main:
+     8 00000000 B804000002                  mov     rax, 0x2000004                 ; macOS write syscall
+     9 00000005 BF01000000                  mov     rdi, 1                         ; stdout
+    10 0000000A 48BE-                       mov     rsi, msg                       ; the message address
+    10 0000000C [0000000000000000] 
+    11 00000014 BA0C000000                  mov     rdx, 12                        ; the message length
+    12 00000019 0F05                        syscall                                ; display the message
+    13 0000001B B801000002                  mov     rax, 0x2000001                 ; macOS exit syscall
+    14 00000020 BF00000000                  mov     rdi, 0                         ; exit code is zero
+    15 00000025 0F05                        syscall
